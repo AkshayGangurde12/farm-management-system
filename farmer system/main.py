@@ -21,7 +21,7 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 # app.config['SQLALCHEMY_DATABASE_URL']='mysql://username:password@localhost/databas_table_name'
-app.config['SQLALCHEMY_DATABASE_URI']='mysql://root:@localhost/farmers'
+app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///farmers.db'
 db=SQLAlchemy(app)
 
 # here we will create db models that is tables
@@ -41,6 +41,13 @@ class Addagroproducts(db.Model):
     productname=db.Column(db.String(100))
     productdesc=db.Column(db.String(300))
     price=db.Column(db.Integer)
+    category=db.Column(db.String(50))
+    quantity=db.Column(db.String(50))
+    basePrice=db.Column(db.Integer)
+    auctionStartTime=db.Column(db.String(100))
+    auctionEndTime=db.Column(db.String(100))
+    image=db.Column(db.String(200))
+    available=db.Column(db.Boolean, default=True)
 
 
 
@@ -95,10 +102,27 @@ def addagroproduct():
         productname=request.form.get('productname')
         productdesc=request.form.get('productdesc')
         price=request.form.get('price')
-        products=Addagroproducts(username=username,email=email,productname=productname,productdesc=productdesc,price=price)
+        category=request.form.get('category')
+        quantity=request.form.get('quantity')
+        basePrice=request.form.get('basePrice')
+        image=request.form.get('image')
+        available=request.form.get('available') == 'on'
+        
+        products=Addagroproducts(
+            username=username,
+            email=email,
+            productname=productname,
+            productdesc=productdesc,
+            price=price,
+            category=category,
+            quantity=quantity,
+            basePrice=basePrice,
+            image=image,
+            available=available
+        )
         db.session.add(products)
         db.session.commit()
-        flash("Product Added","info")
+        flash("Product Listed Successfully! Ready for customers to buy.","success")
         return redirect('/agroproducts')
    
     return render_template('addagroproducts.html')
@@ -241,6 +265,27 @@ def register():
         return redirect('/farmerdetails')
     return render_template('farmer.html',farming=farming)
 
+@app.route('/myproducts')
+@login_required
+def myproducts():
+    """Show products listed by current user"""
+    user_products = Addagroproducts.query.filter_by(email=current_user.email).all()
+    return render_template('myproducts.html', products=user_products)
+
+@app.route('/toggle_availability/<int:pid>')
+@login_required
+def toggle_availability(pid):
+    """Toggle product availability"""
+    product = Addagroproducts.query.filter_by(pid=pid, email=current_user.email).first()
+    if product:
+        product.available = not product.available
+        db.session.commit()
+        status = "available" if product.available else "unavailable"
+        flash(f"Product marked as {status}", "success")
+    else:
+        flash("Product not found or you don't have permission", "error")
+    return redirect('/myproducts')
+
 @app.route('/test')
 def test():
     try:
@@ -249,5 +294,7 @@ def test():
     except:
         return 'My db is not Connected'
 
-
-app.run(debug=True)    
+if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()
+    app.run(debug=True)    

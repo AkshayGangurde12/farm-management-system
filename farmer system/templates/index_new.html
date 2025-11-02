@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block title %}
+Farm Management System - Connect Farmers with Buyers
+{% endblock title %}
+{% block home %}
+menu-active
+{% endblock home %}
+
+{% block body %}
+
+<!-- ======= Search Section ======= -->
+<section id="search" class="py-5 bg-light">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="search-box text-center">
+          <h3 class="mb-4">Find Fresh Farm Products</h3>
+          <form action="/agroproducts" method="GET" class="d-flex">
+            <input type="text" class="form-control form-control-lg me-2" name="search" placeholder="Search for vegetables, fruits, grains..." style="border-radius: 25px;">
+            <button class="btn btn-success btn-lg px-4" type="submit" style="border-radius: 25px;">
+              <i class="fa fa-search"></i> Search
+            </button>
+          </form>
+          <div class="popular-searches mt-3">
+            <small class="text-muted">Popular: </small>
+            <a href="/agroproducts?category=Vegetables" class="badge bg-success text-decoration-none me-2">Vegetables</a>
+            <a href="/agroproducts?category=Fruits" class="badge bg-warning text-decoration-none me-2">Fruits</a>
+            <a href="/agroproducts?category=Grains" class="badge bg-info text-decoration-none">Grains</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= About Section ======= -->
+<section id="about" class="py-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <div class="about-content">
+          <h2 class="mb-4">About Our Farm Management System</h2>
+          <p class="lead">Connecting farmers directly with buyers for fresh, quality agricultural products.</p>
+          <p>Our platform empowers farmers to showcase their produce, manage their inventory, and reach customers directly. We eliminate middlemen, ensuring fair prices for farmers and fresh products for consumers.</p>
+          
+          <div class="row mt-4">
+            <div class="col-md-6">
+              <div class="feature-item d-flex align-items-center mb-3">
+                <div class="feature-icon bg-success text-white rounded-circle me-3 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                  <i class="fa fa-users"></i>
+                </div>
+                <div>
+                  <h6 class="mb-1">Direct Connection</h6>
+                  <small class="text-muted">Farmers meet buyers directly</small>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="feature-item d-flex align-items-center mb-3">
+                <div class="feature-icon bg-success text-white rounded-circle me-3 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                  <i class="fa fa-leaf"></i>
+                </div>
+                <div>
+                  <h6 class="mb-1">Fresh Products</h6>
+                  <small class="text-muted">Farm-fresh quality guaranteed</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="about-image text-center">
+          <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=500&h=400&fit=crop" 
+               alt="Farm Management" class="img-fluid rounded shadow" style="max-height: 400px; object-fit: cover;">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock body %}

@@ -154,9 +154,11 @@ h6 {
     left: 0;
     top: 0;
     right: 0;
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(10px);
     transition: all 0.5s;
     z-index: 997;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
 }
 
 @media (max-width: 991px) {
@@ -199,7 +201,9 @@ h6 {
 
 #header #logo h1 a,
 #header #logo h1 a:hover {
-    color: #fff;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+    font-weight: 700;
 }
 
 #header #logo img {
@@ -296,11 +300,12 @@ h6 {
     padding: 8px;
     text-decoration: none;
     display: inline-block;
-    color: rgba(202, 206, 221, 0.8);
+    color: rgba(255, 255, 255, 0.9);
     font-family: "Raleway", sans-serif;
     font-weight: 600;
     font-size: 14px;
     outline: none;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 }
 
 @media (max-width: 1199px) {
@@ -311,7 +316,8 @@ h6 {
 
 .nav-menu .menu-active a,
 .nav-menu a:hover {
-    color: #fff;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
 }
 
 .nav-menu>li {
@@ -513,9 +519,22 @@ body.mobile-nav-active #mobile-nav-toggle {
 # Intro Section
 --------------------------------------------------------------*/
 
+/* 🌾 BACKGROUND IMAGE OPTIONS - Easy to Change! 🌾
+   Just replace the URL in the background property below with any of these beautiful options:
+   
+   🌱 Fresh Farm Fields (Current): https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1920&h=1080&fit=crop&crop=center
+   🌿 Green Farmland: https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=1920&h=1080&fit=crop&crop=center
+   🥕 Vegetable Garden: https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1920&h=1080&fit=crop&crop=center
+   🌾 Golden Wheat Field: https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=1920&h=1080&fit=crop&crop=center
+   🚜 Organic Farm: https://images.unsplash.com/photo-1592982468441-4dc1e0746c2f?w=1920&h=1080&fit=crop&crop=center
+   🌽 Corn Field: https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=1920&h=1080&fit=crop&crop=center
+   🍅 Tomato Farm: https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=1920&h=1080&fit=crop&crop=center
+   🌻 Sunflower Field: https://images.unsplash.com/photo-1470509037663-253afd7f0f51?w=1920&h=1080&fit=crop&crop=center
+*/
 #intro {
     width: 100%;
-    height: 15vh;
+    height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1920&h=1080&fit=crop&crop=center") center center;
     background-size: cover;
     overflow: hidden;
     position: relative;
@@ -529,7 +548,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 #intro:before {
     content: "";
-    background: rgba(6, 12, 34, 0.8);
+    background: rgba(0, 0, 0, 0.6);
     position: absolute;
     bottom: 0;
     top: 0;
@@ -548,7 +567,12 @@ body.mobile-nav-active #mobile-nav-toggle {
     align-items: center;
     flex-direction: column;
     text-align: center;
-    padding: 0 15px;
+    padding: 40px 15px;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+    border-radius: 20px;
+    margin: 50px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
 }
 
 @media (max-width: 991px) {
@@ -558,11 +582,13 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #intro h1 {
-    color: #fff;
+    color: #ffffff;
     font-family: "Raleway", sans-serif;
     font-size: 56px;
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5);
+    letter-spacing: 2px;
 }
 
 #intro h1 span {
@@ -576,9 +602,11 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #intro p {
-    color: #ebebeb;
+    color: #ffffff;
     font-weight: 700;
-    font-size: 20px;
+    font-size: 22px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8), 0 0 15px rgba(0,0,0,0.5);
+    letter-spacing: 1px;
 }
 
 @media (max-width: 991px) {
@@ -660,24 +688,29 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 #intro .about-btn {
     font-family: "Raleway", sans-serif;
-    font-weight: 500;
-    font-size: 14px;
+    font-weight: 600;
+    font-size: 16px;
     letter-spacing: 1px;
     display: inline-block;
-    padding: 12px 32px;
+    padding: 15px 40px;
     border-radius: 50px;
-    transition: 0.5s;
+    transition: 0.3s;
     line-height: 1;
     margin: 10px;
-    color: #fff;
+    color: #ffffff;
+    background: rgba(248, 34, 73, 0.9);
     -webkit-animation-delay: 0.8s;
     animation-delay: 0.8s;
-    border: 2px solid #f82249;
+    border: 3px solid #f82249;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
 #intro .about-btn:hover {
     background: #f82249;
-    color: #fff;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
 }
 
 @-webkit-keyframes pulsate-btn {
@@ -708,7 +741,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 --------------------------------------------------------------*/
 
 #about {
-    background: url("../img/bg.jpg");
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=1920&h=1080&fit=crop&crop=center") center center;
     background-size: cover;
     overflow: hidden;
     position: relative;

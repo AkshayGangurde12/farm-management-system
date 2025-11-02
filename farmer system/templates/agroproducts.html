@@ -1,52 +1,152 @@
 {% extends 'base.html' %}
 {% block title %}
-Agro Products
+Fresh Farm Products - Buy Direct from Farmers
 {% endblock title %}
 
-
-
 {% block body %}
- <h3 class="text-center"><span>Agro Products</span> </h3>
-  
+<div class="container-fluid bg-light py-3">
+    <div class="container">
+        <h2 class="text-center mb-0"><i class="fas fa-leaf text-success"></i> Fresh Farm Products</h2>
+        <p class="text-center text-muted">Buy fresh produce directly from local farmers</p>
+    </div>
+</div>
+
 {% with messages=get_flashed_messages(with_categories=true) %}
 {% if messages %}
 {% for category, message in messages %}
-
 <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
     {{message}}
-
-
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
 </div>
-  {% endfor %}
-  {% endif %}
-  {% endwith %}
-<br>
+{% endfor %}
+{% endif %}
+{% endwith %}
 
-<div class="container mt-3">
-<div class="row">
-
-  {% for p in query %}
-  <div class="col-sm-4">
-    <div class="card">
-      <div class="card-body">
-        <b><h5 class="card-title">{{p.productname}}</h5></b>
-        <b>Price : {{p.price}}</b>
-        <hr>
-        <p class="card-text">{{p.productdesc}}</p>
-        
- 
-        <p>Owner : {{p.username}}</p>
-        <p>Email : {{p.email}}</p>
-      
-
-        
-        <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to={{p.email}}" target="_blank" class="btn btn-success ">Purchase</a>
-      </div>
+<div class="container mt-4">
+    <!-- Filter Section -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5>Available Products ({{query|length}} items)</h5>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="filterProducts('all')">All</button>
+                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="filterProducts('Vegetables')">Vegetables</button>
+                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="filterProducts('Fruits')">Fruits</button>
+                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="filterProducts('Grains')">Grains</button>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  {% endfor %}
-</div>
-  
 
+    <!-- Products Grid -->
+    <div class="row">
+        {% for p in query %}
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4 product-card" data-category="{{p.category or 'Other'}}">
+            <div class="card h-100 shadow-sm border-0" style="border-radius: 12px;">
+                {% if p.image %}
+                <img src="{{p.image}}" class="card-img-top" style="height: 200px; object-fit: cover; border-radius: 12px 12px 0 0;" alt="{{p.productname}}">
+                {% else %}
+                <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px; border-radius: 12px 12px 0 0;">
+                    <i class="fas fa-seedling fa-3x text-success"></i>
+                </div>
+                {% endif %}
+                
+                <div class="card-body d-flex flex-column">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <h6 class="card-title mb-0 fw-bold">{{p.productname}}</h6>
+                        {% if p.available %}
+                        <span class="badge bg-success">Available</span>
+                        {% else %}
+                        <span class="badge bg-secondary">Out of Stock</span>
+                        {% endif %}
+                    </div>
+                    
+                    {% if p.category %}
+                    <small class="text-muted mb-2">{{p.category}}</small>
+                    {% endif %}
+                    
+                    <p class="card-text text-muted small mb-3">{{p.productdesc[:80]}}{% if p.productdesc|length > 80 %}...{% endif %}</p>
+                    
+                    <div class="mt-auto">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <div>
+                                <span class="h5 text-success fw-bold">₹{{p.price}}</span>
+                                {% if p.basePrice and p.basePrice != p.price %}
+                                <small class="text-muted text-decoration-line-through ms-1">₹{{p.basePrice}}</small>
+                                {% endif %}
+                            </div>
+                            {% if p.quantity %}
+                            <small class="text-muted">{{p.quantity}}</small>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <small class="text-muted">
+                                <i class="fas fa-user"></i> {{p.username}}
+                            </small>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            {% if p.available %}
+                            <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to={{p.email}}&su=Order%20for%20{{p.productname}}&body=Hi%20{{p.username}},%0A%0AI%20would%20like%20to%20order%20{{p.productname}}%20at%20₹{{p.price}}.%0A%0APlease%20let%20me%20know%20the%20availability%20and%20delivery%20details.%0A%0AThank%20you!" 
+               target="_blank" class="btn btn-success btn-sm">
+                                <i class="fas fa-shopping-cart"></i> Order Now
+                            </a>
+                            <a href="https://wa.me/?text=Hi%20{{p.username}},%20I%20am%20interested%20in%20{{p.productname}}%20at%20₹{{p.price}}" 
+               target="_blank" class="btn btn-outline-success btn-sm">
+                                <i class="fab fa-whatsapp"></i> WhatsApp
+                            </a>
+                            {% else %}
+                            <button class="btn btn-secondary btn-sm" disabled>Out of Stock</button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    {% if not query %}
+    <div class="text-center py-5">
+        <i class="fas fa-seedling fa-4x text-muted mb-3"></i>
+        <h4 class="text-muted">No products available yet</h4>
+        <p class="text-muted">Be the first farmer to list your products!</p>
+        {% if current_user.is_authenticated %}
+        <a href="/addagroproduct" class="btn btn-success">Add Your Product</a>
+        {% endif %}
+    </div>
+    {% endif %}
 </div>
-{% endblock body %}
+
+<script>
+function filterProducts(category) {
+    const cards = document.querySelectorAll('.product-card');
+    const buttons = document.querySelectorAll('.btn-group button');
+    
+    // Update active button
+    buttons.forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    
+    // Filter cards
+    cards.forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+</script>
+
+<style>
+.card:hover {
+    transform: translateY(-2px);
+    transition: transform 0.2s ease-in-out;
+}
+.btn-group .btn.active {
+    background-color: #198754;
+    color: white;
+}
+</style>
+{% endblock body %}""

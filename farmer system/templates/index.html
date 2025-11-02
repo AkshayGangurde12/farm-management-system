@@ -1,25 +1,402 @@
 {% extends 'base.html' %}
 {% block title %}
-Student
+Farm Management System - Connect Farmers with Buyers
 {% endblock title %}
 {% block home %}
 menu-active
 {% endblock home %}
 
 {% block body %}
-  
-  <!-- ======= Footer ======= -->
-  <footer id="footer">
-    <div class="footer-top">
-     
-    </div>
 
-    <div class="container">
-   
-      <div class="credits">
-      <br>
-        Developed by <a href="/">Anees </a>
+<!-- ======= Search Section ======= -->
+<section id="search" class="py-5 bg-light">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="search-box text-center">
+          <h3 class="mb-4">Find Fresh Farm Products</h3>
+          <form action="/agroproducts" method="GET" class="d-flex">
+            <input type="text" class="form-control form-control-lg me-2" name="search" placeholder="Search for vegetables, fruits, grains..." style="border-radius: 25px;">
+            <button class="btn btn-success btn-lg px-4" type="submit" style="border-radius: 25px;">
+              <i class="fa fa-search"></i> Search
+            </button>
+          </form>
+          <div class="popular-searches mt-3">
+            <small class="text-muted">Popular: </small>
+            <a href="/agroproducts?category=Vegetables" class="badge bg-success text-decoration-none me-2">Vegetables</a>
+            <a href="/agroproducts?category=Fruits" class="badge bg-warning text-decoration-none me-2">Fruits</a>
+            <a href="/agroproducts?category=Grains" class="badge bg-info text-decoration-none">Grains</a>
+          </div>
+        </div>
       </div>
     </div>
-  </footer><!-- End  Footer -->
+  </div>
+</section>
+
+<!-- ======= About Section ======= -->
+<section id="about" class="py-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <div class="about-content">
+          <h2 class="mb-4">About Our Farm Management System</h2>
+          <p class="lead">Connecting farmers directly with buyers for fresh, quality agricultural products.</p>
+          <p>Our platform empowers farmers to showcase their produce, manage their inventory, and reach customers directly. We eliminate middlemen, ensuring fair prices for farmers and fresh products for consumers.</p>
+          
+          <div class="row mt-4">
+            <div class="col-md-6">
+              <div class="feature-item d-flex align-items-center mb-3">
+                <div class="feature-icon bg-success text-white rounded-circle me-3 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                  <i class="fa fa-users"></i>
+                </div>
+                <div>
+                  <h6 class="mb-1">Direct Connection</h6>
+                  <small class="text-muted">Farmers meet buyers directly</small>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="feature-item d-flex align-items-center mb-3">
+                <div class="feature-icon bg-success text-white rounded-circle me-3 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                  <i class="fa fa-leaf"></i>
+                </div>
+                <div>
+                  <h6 class="mb-1">Fresh Products</h6>
+                  <small class="text-muted">Farm-fresh quality guaranteed</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="about-image text-center">
+          <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=500&h=400&fit=crop" 
+               alt="Farm Management" class="img-fluid rounded shadow" style="max-height: 400px; object-fit: cover;">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= Features Section ======= -->
+<section id="features" class="py-5 bg-light">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2>Platform Features</h2>
+      <p class="text-muted">Everything you need to manage and grow your agricultural business</p>
+    </div>
+    
+    <div class="row">
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="feature-card card h-100 border-0 shadow-sm text-center p-4">
+          <div class="feature-icon mb-3">
+            <i class="fa fa-user-plus fa-3x text-success"></i>
+          </div>
+          <h5 class="card-title">Farmer Registration</h5>
+          <p class="card-text text-muted">Easy registration process for farmers to join our platform and start selling their products.</p>
+          <a href="/register" class="btn btn-outline-success">Register Now</a>
+        </div>
+      </div>
+      
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="feature-card card h-100 border-0 shadow-sm text-center p-4">
+          <div class="feature-icon mb-3">
+            <i class="fa fa-shopping-cart fa-3x text-success"></i>
+          </div>
+          <h5 class="card-title">Product Selling</h5>
+          <p class="card-text text-muted">List your agricultural products with photos, descriptions, and competitive pricing.</p>
+          {% if current_user.is_authenticated %}
+          <a href="/addagroproduct" class="btn btn-outline-success">Sell Products</a>
+          {% else %}
+          <a href="/signup" class="btn btn-outline-success">Get Started</a>
+          {% endif %}
+        </div>
+      </div>
+      
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="feature-card card h-100 border-0 shadow-sm text-center p-4">
+          <div class="feature-icon mb-3">
+            <i class="fa fa-clipboard fa-3x text-success"></i>
+          </div>
+          <h5 class="card-title">Record Management</h5>
+          <p class="card-text text-muted">Track your sales, manage inventory, and maintain detailed records of all transactions.</p>
+          {% if current_user.is_authenticated %}
+          <a href="/myproducts" class="btn btn-outline-success">View Records</a>
+          {% else %}
+          <a href="/signup" class="btn btn-outline-success">Learn More</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= Product Showcase Section ======= -->
+<section id="showcase" class="py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2>Featured Products</h2>
+      <p class="text-muted">Fresh produce from our registered farmers</p>
+    </div>
+    
+    <div class="row">
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="product-card card border-0 shadow-sm">
+          <img src="https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=300&h=200&fit=crop" 
+               class="card-img-top" alt="Fresh Tomatoes" style="height: 200px; object-fit: cover;">
+          <div class="card-body text-center">
+            <h6 class="card-title">Fresh Tomatoes</h6>
+            <p class="text-success fw-bold">₹40/kg</p>
+            <small class="text-muted">Organic & Fresh</small>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="product-card card border-0 shadow-sm">
+          <img src="https://images.unsplash.com/photo-1619566636858-adf3ef46400b?w=300&h=200&fit=crop" 
+               class="card-img-top" alt="Fresh Carrots" style="height: 200px; object-fit: cover;">
+          <div class="card-body text-center">
+            <h6 class="card-title">Fresh Carrots</h6>
+            <p class="text-success fw-bold">₹60/kg</p>
+            <small class="text-muted">Farm Fresh</small>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="product-card card border-0 shadow-sm">
+          <img src="https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=300&h=200&fit=crop" 
+               class="card-img-top" alt="Fresh Apples" style="height: 200px; object-fit: cover;">
+          <div class="card-body text-center">
+            <h6 class="card-title">Fresh Apples</h6>
+            <p class="text-success fw-bold">₹120/kg</p>
+            <small class="text-muted">Premium Quality</small>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="product-card card border-0 shadow-sm">
+          <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?w=300&h=200&fit=crop" 
+               class="card-img-top" alt="Rice Grains" style="height: 200px; object-fit: cover;">
+          <div class="card-body text-center">
+            <h6 class="card-title">Basmati Rice</h6>
+            <p class="text-success fw-bold">₹80/kg</p>
+            <small class="text-muted">Premium Grade</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="text-center mt-4">
+      <a href="/agroproducts" class="btn btn-success btn-lg">View All Products</a>
+    </div>
+  </div>
+</section>
+
+<!-- ======= Testimonials Section ======= -->
+<section id="testimonials" class="py-5 bg-light">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2>What Our Users Say</h2>
+      <p class="text-muted">Hear from farmers and buyers who trust our platform</p>
+    </div>
+    
+    <div class="row">
+      <div class="col-lg-4 mb-4">
+        <div class="testimonial-card card border-0 shadow-sm p-4 h-100">
+          <div class="testimonial-content">
+            <div class="stars mb-3">
+              <i class="fa fa-star text-warning"></i>
+              <i class="fa fa-star text-warning"></i>
+              <i class="fa fa-star text-warning"></i>
+              <i class="fa fa-star text-warning"></i>
+              <i class="fa fa-star text-warning"></i>
+            </div>
+            <p class="mb-3">"This platform has revolutionized how I sell my vegetables. Direct connection with buyers means better prices and no middleman hassles."</p>
+            <div class="testimonial-author d-flex align-items-center">
+              <div class="author-avatar bg-success text-white rounded-circle me-3 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                <i class="fa fa-user"></i>
+              </div>
+              <div>
+                <h6 class="mb-0">Rajesh Kumar</h6>
+                <small class="text-muted">Vegetable Farmer, Punjab</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-4 mb-4">
+        <div class="testimonial-card card border-0 shadow-sm p-4 h-100">
+          <div class="testimonial-content">
+            <div class="stars mb-3">
+              <i class="fa fa-star text-warning"></i>
+              <i class="fa fa-star text-warning"></i>
+              <i class="fa fa-star text-warning"></i>
+              <i class="fa fa-star text-warning"></i>
+              <i class="fa fa-star text-warning"></i>
+            </div>
+            <p class="mb-3">"Amazing quality fruits at reasonable prices. I can directly contact farmers and get the freshest produce for my family."</p>
+            <div class="testimonial-author d-flex align-items-center">
+              <div class="author-avatar bg-success text-white rounded-circle me-3 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                <i class="fa fa-user"></i>
+              </div>
+              <div>
+                <h6 class="mb-0">Priya Sharma</h6>
+                <small class="text-muted">Regular Customer, Delhi</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-4 mb-4">
+        <div class="testimonial-card card border-0 shadow-sm p-4 h-100">
+          <div class="testimonial-content">
+            <div class="stars mb-3">
+              <i class="fa fa-star text-warning"></i>
+              <i class="fa fa-star text-warning"></i>
+              <i class="fa fa-star text-warning"></i>
+              <i class="fa fa-star text-warning"></i>
+              <i class="fa fa-star text-warning"></i>
+            </div>
+            <p class="mb-3">"The record management system helps me track all my sales and inventory efficiently. Great platform for farmers!"</p>
+            <div class="testimonial-author d-flex align-items-center">
+              <div class="author-avatar bg-success text-white rounded-circle me-3 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                <i class="fa fa-user"></i>
+              </div>
+              <div>
+                <h6 class="mb-0">Amit Patel</h6>
+                <small class="text-muted">Grain Farmer, Gujarat</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= Call to Action Section ======= -->
+<section id="cta" class="py-5 bg-success text-white">
+  <div class="container">
+    <div class="row justify-content-center text-center">
+      <div class="col-lg-8">
+        <h3 class="mb-2">Ready to Start Selling Your Products?</h3>
+        <p class="mb-4">Join thousands of farmers already using our platform to reach customers directly.</p>
+        <div class="cta-buttons">
+          {% if current_user.is_authenticated %}
+          <a href="/addagroproduct" class="btn btn-light btn-lg me-3">Start Selling</a>
+          <a href="/myproducts" class="btn btn-outline-light btn-lg">My Dashboard</a>
+          {% else %}
+          <a href="/signup" class="btn btn-dark btn-lg me-3">Join Now</a>
+          <a href="/agroproducts" class="btn btn-outline-light btn-lg">Browse Products</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= Footer ======= -->
+<footer id="footer" class="py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 mb-4">
+        <h5 class="mb-3 text-white">Farm Management System</h5>
+        <p class="text-muted">Connecting farmers with buyers for fresh, quality agricultural products. Building a sustainable future for agriculture.</p>
+        <div class="social-links">
+          <a href="#" class="text-white me-3"><i class="fa fa-facebook"></i></a>
+          <a href="#" class="text-white me-3"><i class="fa fa-twitter"></i></a>
+          <a href="https://www.instagram.com/akshu_gangurde_3005?igsh=dzg1aGRmeGJpd2Fl" class="text-white me-3"><i class="fa fa-instagram"></i></a>
+          <a href="https://www.linkedin.com/in/akshay-gangurde-8b2714283/" class="text-white"><i class="fa fa-linkedin"></i></a>
+        </div>
+      </div>
+      
+      <div class="col-lg-2 col-md-6 mb-4">
+        <h6 class="mb-3 text-white">Quick Links</h6>
+        <ul class="list-unstyled">
+          <li><a href="/" class="text-muted text-decoration-none">Home</a></li>
+          <li><a href="/agroproducts" class="text-muted text-decoration-none">Products</a></li>
+          <li><a href="/register" class="text-muted text-decoration-none">Register</a></li>
+          <li><a href="/farmerdetails" class="text-muted text-decoration-none">Farmers</a></li>
+        </ul>
+      </div>
+      
+      <div class="col-lg-2 col-md-6 mb-4">
+        <h6 class="mb-3 text-white">For Farmers</h6>
+        <ul class="list-unstyled">
+          <li><a href="/addagroproduct" class="text-muted text-decoration-none">Sell Products</a></li>
+          <li><a href="/myproducts" class="text-muted text-decoration-none">My Products</a></li>
+          <li><a href="/addfarming" class="text-muted text-decoration-none">Add Farming</a></li>
+          <li><a href="/triggers" class="text-muted text-decoration-none">Records</a></li>
+        </ul>
+      </div>
+      
+      <div class="col-lg-4 mb-4">
+        <h6 class="mb-3 text-white">Contact Info</h6>
+        <div class="contact-info text-muted">
+          <p class="mb-2"><i class="fa fa-map-marker me-2"></i>123 Farm Street, Agricultural District</p>
+          <p class="mb-2"><i class="fa fa-phone me-2"></i>+91 98765 43210</p>
+          <p class="mb-2"><i class="fa fa-envelope me-2"></i>info@farmmanagement.com</p>
+        </div>
+      </div>
+    </div>
+    
+    <hr class="my-4 text-light">
+    
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <p class="mb-0 text-light">&copy; 2025 Farm Management System. All rights reserved.</p>
+      </div>
+      <div class="col-md-6 text-md-end">
+        <p class="mb-0 text-muted">Built with ❤️ for farmers</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+/* 🌿 Modern Green Gradient Theme */
+#footer {
+  background: linear-gradient(135deg, #2e8b57, #006400);
+  color: #f8f9fa;
+}
+
+.text-muted {
+  color: #d1e7dd !important;
+}
+
+.social-links a:hover {
+  color: #a8df65 !important;
+}
+
+/* Hover & card effects remain unchanged */
+.feature-card:hover {
+  transform: translateY(-5px);
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-3px);
+  transition: transform 0.3s ease;
+}
+
+.testimonial-card {
+  transition: transform 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-2px);
+}
+
+.search-box input:focus {
+  box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25);
+  border-color: #198754;
+}
+</style>
+
 {% endblock body %}

@@ -28,41 +28,73 @@ Add AgroProducts
 <div class="col-md-4"></div>
 <div class="col-md-4">
 
-<form action="/addagroproduct" method="post">
+<form action="/addagroproduct" method="post" enctype="multipart/form-data">
 <div class="form-group">
-
 <label for="username">Farmer Name</label>
-<input type="text" class="form-control" name="username" value="{{current_user.username}}" id="{{current_user.username}}" required>
+<input type="text" class="form-control" name="username" value="{{current_user.username}}" id="{{current_user.username}}" readonly>
 </div>
 <br>
 <div class="form-group">
-
-<label for="username">Farmer Email</label>
-<input type="email" class="form-control" name="email" value="{{current_user.email}}" id="{{current_user.email}}" required>
+<label for="email">Farmer Email</label>
+<input type="email" class="form-control" name="email" value="{{current_user.email}}" id="{{current_user.email}}" readonly>
 </div>
 <br>
 <div class="form-group">
-
-<label for="rollno">Product Name</label>
-<input type="text" class="form-control" name="productname" id="productname" required>
+<label for="productname">Product Name</label>
+<input type="text" class="form-control" name="productname" id="productname" placeholder="e.g., Fresh Tomatoes" required>
 </div>
 <br>
-
-
+<div class="form-group">
+<label for="category">Category</label>
+<select class="form-control" name="category" id="category" required>
+<option value="">Select Category</option>
+<option value="Vegetables">Vegetables</option>
+<option value="Fruits">Fruits</option>
+<option value="Grains">Grains</option>
+<option value="Dairy">Dairy</option>
+<option value="Spices">Spices</option>
+<option value="Organic">Organic</option>
+</select>
+</div>
+<br>
 <div class="form-group">
 <label for="productdesc">Product Description</label>
-<textarea class="form-control" name="productdesc" id="productdesc" required></textarea>
+<textarea class="form-control" name="productdesc" id="productdesc" placeholder="Describe your product quality, origin, etc." required></textarea>
 </div>
 <br>
-
+<div class="row">
+<div class="col-md-6">
 <div class="form-group">
-
-<label for="price">Price</label>
-<input type="number" class="form-control" name="price" id="price" required>
+<label for="price">Selling Price (₹/kg)</label>
+<input type="number" class="form-control" name="price" id="price" placeholder="120" min="1" required>
+</div>
+</div>
+<div class="col-md-6">
+<div class="form-group">
+<label for="basePrice">Base Price (₹/kg)</label>
+<input type="number" class="form-control" name="basePrice" id="basePrice" placeholder="100" min="1">
+</div>
+</div>
 </div>
 <br>
-  
-  <button type="submit" class="btn btn-success  btn-block">Add Product</button>
+<div class="form-group">
+<label for="quantity">Available Quantity</label>
+<input type="text" class="form-control" name="quantity" id="quantity" placeholder="e.g., 50 kg, 100 pieces" required>
+</div>
+<br>
+<div class="form-group">
+<label for="image">Product Image URL</label>
+<input type="url" class="form-control" name="image" id="image" placeholder="https://example.com/image.jpg">
+</div>
+<br>
+<div class="form-check">
+<input type="checkbox" class="form-check-input" name="available" id="available" checked>
+<label class="form-check-label" for="available">
+Available for Sale
+</label>
+</div>
+<br>
+<button type="submit" class="btn btn-success btn-block">List Product for Sale</button>
 </form>
 <br>
 <br>
